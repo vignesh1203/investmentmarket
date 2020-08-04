@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <h3>Gold</h3>
+  </div>
+  <div class="row">
+    <h4 class="col-md-6 text-center">Today's Gold Rate </h4>
+  </div>
+  <div class="row">
+    <div class="col-6 col-md-3">
+      <div class="card">
+        <div class="card-body text-center p-2">
+          <span class="badge badge-pill badge-warning">22 K</span>
+          <h5>{{samplejson[0].amountfor22}} / gram</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card">
+        <div class="card-body text-center p-2">
+          <span class="badge badge-pill badge-warning">24 K</span>
+          <h5>{{samplejson[0].amountfor24}} / gram</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- second region -->
+  <div class="row mt-4">
+    <div class="col-md-7">
+      <table class="table table-bordered table-striped table-dark text-center">
+        <thead>
+          <tr>
+            <th rowspan="2">Date</th>
+            <th rowspan="2">Session</th>
+            <th colspan="2">Rates per gram</th>
+          </tr>
+          <tr>
+            <th>22 K</th>
+            <th>24 K</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let golddata of samplejson; index as i;last as isLast">
+            <th>{{golddata.date | date:"dd MMM yyyy"}}</th>
+            <td>{{golddata.session}}</td>
+            <td>{{golddata.amountfor22}}  <span class="float-right" *ngIf="!isLast" ><i *ngIf="calculateDifference22(i) == 0" class="fas fa-arrows-alt-v text-warning"></i><i *ngIf="calculateDifference22(i) > 0" class="fas fa-arrow-up text-success"></i> <i *ngIf="calculateDifference22(i) < 0" class="fas fa-arrow-down text-danger"></i>{{calculateDifference22(i)}}</span></td>
+            <td>{{golddata.amountfor24}}  <span class="float-right" *ngIf="!isLast" ><i *ngIf="calculateDifference24(i) == 0" class="fas fa-arrows-alt-v text-warning"></i><i *ngIf="calculateDifference24(i) > 0" class="fas fa-arrow-up text-success"></i> <i *ngIf="calculateDifference24(i) < 0" class="fas fa-arrow-down text-danger"></i>{{calculateDifference24(i)}}</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <div style="display: block;">
+            <canvas baseChart width="400" height="400"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [colors]="lineChartColors"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType"
+                        ></canvas>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
